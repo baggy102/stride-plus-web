@@ -1,11 +1,12 @@
-/* 전체 화면 스타일 */
+/* 기본 스타일 */
 body, html {
   margin: 0;
   padding: 0;
-  height: auto;
+  height: 100%;
   font-family: Arial, sans-serif;
-  background-color: #ffffff; /* 배경색 */
+  background-color: #ffffff;
   box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 /* 헤더 스타일 */
@@ -13,7 +14,16 @@ header {
   width: 100%;
   background-color: #ffffff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 16px 0;
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  box-sizing: border-box; 
+}
+
+header .logo {
+  flex: 1;
   text-align: center;
 }
 
@@ -21,39 +31,148 @@ header h1 {
   margin: 0;
   font-size: 24px;
   font-weight: bold;
-  color: #013970; /* 로고 텍스트 색상 */
+  color: #013970;
+}
+
+/* 햄버거 메뉴 버튼 */
+.menu-toggle {
+  background: none;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 25px;
+  height: 20px;
+  cursor: pointer;
+  padding: 0;
+  position: relative;
+  right: 10px;
+  z-index: 10;
+}
+
+/* 햄버거 메뉴 바 스타일 */
+.bar {
+  width: 25px;
+  height: 4px;
+  background-color: #333;
+}
+
+/* 메뉴 스타일 (기본적으로 숨김) */
+.menu {
+  position: absolute;
+  top: 60px; 
+  right: 20px; 
+  background-color: #ffffff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 0;
+  z-index: 9;
+}
+
+.menu a {
+  padding: 10px 20px;
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  text-align: center;
+}
+
+.menu a:hover {
+  background-color: #f0f0f0;
+  color: #013970;
 }
 
 /* 메인 콘텐츠 스타일 */
 main {
   display: flex;
-  flex-direction: row; /* 좌우 정렬 */
-  align-items: center; /* 세로 방향으로 가운데 정렬 */
-  justify-content: center; /* 가로 방향으로 중앙 정렬 */
+  flex-direction: row; 
+  align-items: center; 
+  justify-content: center;
   width: 100%;
   max-width: 800px;
-  height: 80vh; /* 화면 전체 높이로 설정 */
-  padding: 0 16px; /* 좌우 여백 */
+  height: 80vh;
+  padding: 0; 
   box-sizing: border-box;
-  gap: 24px; /* 이미지와 텍스트 사이 간격 */
-  margin: 0 auto; /* 수평 중앙 정렬 */
+  gap: 80px; 
+  margin: 0 auto;
 }
-
 
 /* 이미지 섹션 */
 main img {
   width: auto;
   height: 60%;
   border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 /* 텍스트 섹션 */
 main h2 {
-  font-size: 20px;
+  font-size: 30px;
   color: #333333;
   font-weight: bold;
   line-height: 1.5;
   margin: 0;
-  text-align: left; /* 텍스트를 왼쪽 정렬 */
+  text-align: left;
+  white-space: nowrap;
+}
+
+/* 데스크탑 스타일 (기본) */
+@media (min-width: 1025px) {
+  main {
+    flex-direction: row;
+    gap: 80px;
+  }
+
+  main img {
+    width: auto;
+    height: 60%;
+  }
+
+  main h2 {
+    font-size: 30px;
+    text-align: left;
+  }
+}
+
+/* 태블릿 스타일 */
+@media (max-width: 1024px) and (min-width: 769px) {
+  main {
+    flex-direction: column; 
+    gap: 40px; 
+    height: 60vh; 
+  }
+
+  main img {
+    height: 50%;
+  }
+
+  main h2 {
+    font-size: 28px;
+    text-align: center; 
+    white-space: normal;
+  }
+}
+
+/* 모바일 스타일 */
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 20px;
+  }
+
+  main {
+    flex-direction: column; 
+    gap: 20px; 
+    height: 50vh; 
+  }
+
+  main img {
+    height: 40%; 
+  }
+
+  main h2 {
+    font-size: 24px;
+    text-align: center;
+    white-space: normal;
+  }
 }
