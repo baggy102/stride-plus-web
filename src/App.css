@@ -97,6 +97,7 @@ main {
   box-sizing: border-box;
   gap: 80px; 
   margin: 0 auto;
+  cursor: pointer;
 }
 
 /* 이미지 섹션 */
