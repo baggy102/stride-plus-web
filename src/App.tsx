@@ -1,12 +1,8 @@
 import React from 'react';
 import { Route, Routes, Link } from 'react-router-dom';
 import Home from './pages/home'; // Home 컴포넌트 import
-import './App.css';
-
-// 예시로 추가할 MainPage 컴포넌트
-const MainPage = () => {
-  return <div>Main Page</div>;
-};
+import MainPage from './pages/main';
+import './styles/App.css';
 
 function App() {
   return (

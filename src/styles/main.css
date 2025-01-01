@@ -1,0 +1,117 @@
+.main-page-container {
+  display: flex;
+  flex-direction: column; /* 세로로 배치 */
+  align-items: center; /* 내용 중앙 정렬 */
+  width: 100%;
+  margin: 0 auto; /* 화면 중앙 정렬 */
+}
+
+/* 기본 스타일 */
+main {
+  display: flex;
+  flex-direction: column; /* 기본적으로 세로로 배치 */
+  gap: 20px; /* 각 게시물 간 간격 */
+  padding: 20px;
+  margin: 0 auto; /* 화면 중앙 정렬 */
+  box-sizing: border-box;
+  width: 100%; /* 화면 너비의 80%로 설정 */
+  max-width: 800px; /* 최대 너비 800px로 제한 */
+  flex-wrap: wrap; /* 요소가 화면을 넘기지 않도록 wrap 처리 */
+}
+
+.post-card-container {
+  width: 100%; /* 부모 너비에 맞춰 확장 */
+  display: block; /* 가로 배치 방지 */
+}
+
+
+/* 각 포스트 카드 */
+.post-card {
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  width: 80%; /* 부모 너비에 맞춰 확장 */
+  display: flex;
+  flex-direction: column; /* 이미지와 텍스트를 세로로 배치 */
+  margin: 0 AUTO
+}
+
+/* 이미지 크기 조정 */
+.post-card img {
+  width: 100%;
+  height: auto; /* 비율에 맞춰 자동으로 크기 조정 */
+  display: block;
+}
+
+/* 게시물 상세 내용 */
+.post-details {
+  padding: 15px;
+  display: flex;
+  flex-direction: column; /* 세로로 배치 */
+}
+
+/* 위치 정보 스타일 */
+.post-location {
+  font-size: 16px;
+  font-weight: bold;
+  color: #013970;
+  margin-bottom: 10px;
+}
+
+/* 댓글과 좋아요 정보 */
+.post-interactions {
+  display: flex;
+  justify-content: space-between; /* 댓글과 추천 수를 양쪽에 배치 */
+  font-size: 14px;
+  color: #666666;
+}
+
+.post-interactions span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.post-interactions span i {
+  font-size: 16px;
+  color: #666666;
+}
+
+/* 반응형 처리 */
+@media (max-width: 1024px) {
+  main {
+    padding: 10px; /* 작은 화면에서 여백 줄이기 */
+  }
+
+  .post-card {
+    padding: 10px; /* 카드의 패딩도 줄여주기 */
+  }
+
+  .post-location {
+    font-size: 14px; /* 위치 정보 폰트 크기 줄이기 */
+  }
+
+  .post-interactions {
+    font-size: 12px; /* 댓글과 좋아요 텍스트 크기 줄이기 */
+  }
+}
+
+/* 모바일 스타일 */
+@media (max-width: 768px) {
+  main {
+    padding: 5px; /* 모바일 화면에서 여백 더욱 줄이기 */
+  }
+
+  .post-card {
+    padding: 8px; /* 모바일에서 카드 패딩 조정 */
+  }
+
+  .post-location {
+    font-size: 12px; /* 위치 정보 폰트 크기 더 줄이기 */
+  }
+
+  .post-interactions {
+    font-size: 10px; /* 댓글과 좋아요 텍스트 크기 더 줄이기 */
+  }
+}
