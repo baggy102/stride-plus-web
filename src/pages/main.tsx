@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // React Router 사용
 import '../styles/main.css';
 import Header from '../components/header';
 
-import { MapContainer, TileLayer, Marker, Popup, Circle } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 
-// Leaflet 마커 아이콘 경로 문제 해결
 import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
 import markerShadow from 'leaflet/dist/images/marker-shadow.png';
@@ -20,6 +20,8 @@ L.Icon.Default.mergeOptions({
 // 게시물 타입 정의
 type Post = {
   id: number;
+  userId: number;
+  userProfile: string;
   image: string;
   location: string;
   comments: number;
@@ -31,6 +33,8 @@ type Post = {
 const posts: Post[] = [
   {
     id: 1,
+    userId: 1,
+    userProfile: process.env.PUBLIC_URL + '/sneaker.png', // 사용자 프로필 이미지
     image: process.env.PUBLIC_URL + '/main-running-track.jpg',
     location: '강남구, 서울',
     comments: 20,
@@ -40,6 +44,8 @@ const posts: Post[] = [
   },
   {
     id: 2,
+    userId: 2,
+    userProfile: process.env.PUBLIC_URL + '/sneaker.png',
     image: process.env.PUBLIC_URL + '/main-running-track.jpg',
     location: '홍대, 서울',
     comments: 15,
@@ -49,6 +55,8 @@ const posts: Post[] = [
   },
   {
     id: 3,
+    userId: 3,
+    userProfile: process.env.PUBLIC_URL + '/sneaker.png',
     image: process.env.PUBLIC_URL + '/main-running-track.jpg',
     location: '여의도, 서울',
     comments: 10,
@@ -58,6 +66,8 @@ const posts: Post[] = [
   },
   {
     id: 4,
+    userId: 4,
+    userProfile: process.env.PUBLIC_URL + '/sneaker.png',
     image: process.env.PUBLIC_URL + '/main-running-track.jpg',
     location: '잠실, 서울',
     comments: 25,
@@ -69,12 +79,12 @@ const posts: Post[] = [
 
 const MainPage = () => {
   const [selectedPost, setSelectedPost] = useState<Post | null>(null);
+  const navigate = useNavigate(); // React Router의 navigate 함수
 
   return (
     <div className="main-page-container">
       <Header />
 
-      {/* 지도 렌더링 */}
       <MapContainer
         center={[37.5665, 126.9780]} // 서울 중심
         zoom={12} // 적절한 줌 레벨
@@ -85,24 +95,13 @@ const MainPage = () => {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/">CARTO</a>'
         />
 
-        {/* 서울 중심에 구분선 추가
-        <Circle
-          center={[37.5665, 126.9780]} // 서울 중심
-          radius={5000} // 반경 5km
-          pathOptions={{
-            color: '#013970', // 구분선 색상 (stride+ 마크 색상)
-            weight: 2, // 선 두께
-            fillOpacity: 0.1, // 내부 투명도
-          }}
-        /> */}
-
         {posts.map((post) => (
           <Marker
             key={post.id}
             position={[post.lat, post.lng]}
             eventHandlers={{
               click: () => {
-                setSelectedPost(post); // 핀 클릭 시 게시물 선택
+                setSelectedPost(post);
               },
             }}
           >
@@ -110,15 +109,32 @@ const MainPage = () => {
               <strong>{post.location}</strong>
               <br />
               ❤️ {post.likes} | 💬 {post.comments}
+              <br />
+              {/* 사용자 프로필 클릭 시 개인 화면으로 이동 */}
+              <img
+                src={post.userProfile}
+                alt="User Profile"
+                className="user-profile"
+                onClick={() => navigate(`/user/${post.userId}`)} // 개인 화면으로 이동
+                style={{ cursor: 'pointer', width: '30px', height: '30px', borderRadius: '50%' }}
+              />
             </Popup>
           </Marker>
         ))}
       </MapContainer>
 
-      {/* 선택된 게시물 정보 */}
       {selectedPost && (
         <div className="selected-post">
           <div className="post-card">
+            {/* 사용자 프로필 이미지 */}
+            <div className="post-user-profile">
+              <img
+                src={selectedPost.userProfile}
+                alt="User Profile"
+                style={{ width: '50px', height: '50px', borderRadius: '50%', marginBottom: '10px' }}
+              />
+            </div>
+            {/* 게시물 이미지 */}
             <div className="post-image">
               <img src={selectedPost.image} alt={`Track at ${selectedPost.location}`} />
             </div>
