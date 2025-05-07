@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'; // React Router 사용
 import '../styles/main.css';
 import Header from '../components/header';
 
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 
@@ -17,6 +17,13 @@ L.Icon.Default.mergeOptions({
   shadowUrl: markerShadow,
 });
 
+const redDotIcon = new L.DivIcon({
+  className: 'custom-marker',
+  html: `<div style="width: 6px; height: 6px; background-color: red; border-radius: 50%;"></div>`, // 크기를 더 작게 조정
+  iconSize: [6, 6], // 아이콘 크기
+  iconAnchor: [3, 3], // 중심점
+});
+
 // 게시물 타입 정의
 type Post = {
   id: number;
@@ -26,6 +33,9 @@ type Post = {
   location: string;
   comments: number;
   likes: number;
+  distance: string; // 거리
+  time: string; // 시간
+  title: string; // 코스 제목
   lat: number;
   lng: number;
 };
@@ -34,11 +44,14 @@ const posts: Post[] = [
   {
     id: 1,
     userId: 1,
-    userProfile: process.env.PUBLIC_URL + '/sneaker.png', // 사용자 프로필 이미지
+    userProfile: process.env.PUBLIC_URL + '/sneaker.png',
     image: process.env.PUBLIC_URL + '/main-running-track.jpg',
     location: '강남구, 서울',
     comments: 20,
     likes: 100,
+    distance: '5km',
+    time: '30min',
+    title: 'Morning Run',
     lat: 37.4979,
     lng: 127.0276,
   },
@@ -46,40 +59,24 @@ const posts: Post[] = [
     id: 2,
     userId: 2,
     userProfile: process.env.PUBLIC_URL + '/sneaker.png',
-    image: process.env.PUBLIC_URL + '/main-running-track.jpg',
+    image: process.env.PUBLIC_URL + '/runrun.jpg',
     location: '홍대, 서울',
     comments: 15,
     likes: 80,
+    distance: '10km',
+    time: '1hr',
+    title: 'Evening Jog',
     lat: 37.5563,
     lng: 126.9220,
-  },
-  {
-    id: 3,
-    userId: 3,
-    userProfile: process.env.PUBLIC_URL + '/sneaker.png',
-    image: process.env.PUBLIC_URL + '/main-running-track.jpg',
-    location: '여의도, 서울',
-    comments: 10,
-    likes: 60,
-    lat: 37.5241,
-    lng: 126.9265,
-  },
-  {
-    id: 4,
-    userId: 4,
-    userProfile: process.env.PUBLIC_URL + '/sneaker.png',
-    image: process.env.PUBLIC_URL + '/main-running-track.jpg',
-    location: '잠실, 서울',
-    comments: 25,
-    likes: 120,
-    lat: 37.5139,
-    lng: 127.1025,
   },
 ];
 
 const MainPage = () => {
   const [selectedPost, setSelectedPost] = useState<Post | null>(null);
-  const navigate = useNavigate(); // React Router의 navigate 함수
+
+  const closeModal = () => {
+    setSelectedPost(null); // 모달 닫기
+  };
 
   return (
     <div className="main-page-container">
@@ -91,7 +88,7 @@ const MainPage = () => {
         className="map-container"
       >
         <TileLayer
-          url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png" // CartoDB Light 테마
+          url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/">CARTO</a>'
         />
 
@@ -99,52 +96,30 @@ const MainPage = () => {
           <Marker
             key={post.id}
             position={[post.lat, post.lng]}
+            icon={redDotIcon}
             eventHandlers={{
               click: () => {
                 setSelectedPost(post);
               },
             }}
-          >
-            <Popup>
-              <strong>{post.location}</strong>
-              <br />
-              ❤️ {post.likes} | 💬 {post.comments}
-              <br />
-              {/* 사용자 프로필 클릭 시 개인 화면으로 이동 */}
-              <img
-                src={post.userProfile}
-                alt="User Profile"
-                className="user-profile"
-                onClick={() => navigate(`/user/${post.userId}`)} // 개인 화면으로 이동
-                style={{ cursor: 'pointer', width: '30px', height: '30px', borderRadius: '50%' }}
-              />
-            </Popup>
-          </Marker>
+          />
         ))}
       </MapContainer>
 
+      {/* 모달창 */}
       {selectedPost && (
-        <div className="selected-post">
-          <div className="post-card">
-            {/* 사용자 프로필 이미지 */}
-            <div className="post-user-profile">
-              <img
-                src={selectedPost.userProfile}
-                alt="User Profile"
-                style={{ width: '50px', height: '50px', borderRadius: '50%', marginBottom: '10px' }}
-              />
+        <div className="modal-overlay" onClick={closeModal}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <img src={selectedPost.image} alt="Post" className="modal-image" />
+            <div className="modal-details">
+              <p className="modal-user-name">{`User ${selectedPost.userId}`}</p>
+              <p className="modal-title">{selectedPost.title}</p>
+              <p className="modal-distance">{`Distance: ${selectedPost.distance}`}</p>
+              <p className="modal-time">{`Time: ${selectedPost.time}`}</p>
             </div>
-            {/* 게시물 이미지 */}
-            <div className="post-image">
-              <img src={selectedPost.image} alt={`Track at ${selectedPost.location}`} />
-            </div>
-            <div className="post-details">
-              <p className="post-location">{selectedPost.location}</p>
-              <div className="post-interactions">
-                <span className="post-comments">💬 {selectedPost.comments}</span>
-                <span className="post-likes">❤️ {selectedPost.likes}</span>
-              </div>
-            </div>
+            <button className="modal-close-button" onClick={closeModal}>
+              Close
+            </button>
           </div>
         </div>
       )}

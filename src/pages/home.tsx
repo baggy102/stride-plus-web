@@ -19,11 +19,11 @@ const Home = () => {
           src={process.env.PUBLIC_URL + '/main-running-track.jpg'}
           alt="Track"
         />
-        <h2>
-          Share your track <br />
-          Widen your stride
-        </h2>
       </main>
+
+      <footer>
+        <p></p>
+      </footer>
     </div>
   );
 };
