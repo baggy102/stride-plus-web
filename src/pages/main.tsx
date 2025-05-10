@@ -110,19 +110,30 @@ const MainPage = () => {
       {selectedPost && (
         <div className="modal-overlay" onClick={closeModal}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <img src={selectedPost.image} alt="Post" className="modal-image" />
+            {/* 사진 섹션 */}
+            <div className="modal-image-container">
+              <img src={selectedPost.image} alt="Post" className="modal-image" />
+            </div>
+
+            {/* 게시물 정보 섹션 */}
             <div className="modal-details">
               <p className="modal-user-name">{`User ${selectedPost.userId}`}</p>
               <p className="modal-title">{selectedPost.title}</p>
               <p className="modal-distance">{`Distance: ${selectedPost.distance}`}</p>
               <p className="modal-time">{`Time: ${selectedPost.time}`}</p>
+              <p className="modal-footer-text">Wide your stride</p>
             </div>
+
             <button className="modal-close-button" onClick={closeModal}>
               Close
             </button>
           </div>
         </div>
       )}
+
+      <footer>
+        <p>© 2025 Stride+</p>
+      </footer>
     </div>
   );
 };
