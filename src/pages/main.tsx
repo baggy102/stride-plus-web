@@ -45,7 +45,7 @@ const posts: Post[] = [
     id: 1,
     userId: 1,
     userProfile: process.env.PUBLIC_URL + '/sneaker.png',
-    image: process.env.PUBLIC_URL + '/main-running-track.jpg',
+    image: process.env.PUBLIC_URL + '/run.jpg',
     location: '강남구, 서울',
     comments: 20,
     likes: 100,
@@ -121,7 +121,7 @@ const MainPage = () => {
               <p className="modal-title">{selectedPost.title}</p>
               <p className="modal-distance">{`Distance: ${selectedPost.distance}`}</p>
               <p className="modal-time">{`Time: ${selectedPost.time}`}</p>
-              <p className="modal-footer-text">Wide your stride</p>
+              <p className="modal-footer-text">Widen your stride</p>
             </div>
 
             <button className="modal-close-button" onClick={closeModal}>

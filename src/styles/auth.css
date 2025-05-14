@@ -1,0 +1,79 @@
+/* 페이지 스타일 */
+.auth-page {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* 컨테이너 스타일 */
+  .auth-container {
+    width: 90%;
+    max-width: 400px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    position: relative; /* 위치 조정을 위해 relative 설정 */
+    top: 20vh;
+  }
+  
+  /* 제목 스타일 */
+  .auth-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #013970;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  /* 폼 스타일 */
+  .auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-group label {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+  }
+  
+  .form-group input {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .form-group input:focus {
+    outline: none;
+    border-color: #013970;
+    box-shadow: 0 0 4px rgba(1, 57, 112, 0.3);
+  }
+  
+  /* 버튼 스타일 */
+  .auth-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    background-color: #013970;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+  }
+  
+  .auth-button:hover {
+    background-color: #012a5c;
+  }

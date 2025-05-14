@@ -6,6 +6,8 @@ import './styles/App.css';
 import UserPage from './pages/user';
 import WritePost from './pages/writePost';
 import UploadPost from './pages/uploadPost';
+import SignUp from './pages/signUp';
+import SignIn from './pages/signIn';
 
 function App() {
   return (
@@ -16,6 +18,8 @@ function App() {
         <Route path="/mainpage" element={<MainPage />} />
         <Route path="/user/:userId" element={<UserPage />} />
         <Route path="/uploadPost" element={<UploadPost />} />
+        <Route path="/signIn" element={<SignIn />} />
+        <Route path="/signUp" element={<SignUp />} />
       </Routes>
     </div>
   );

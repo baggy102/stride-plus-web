@@ -16,13 +16,13 @@ const Home = () => {
 
       <main onClick={handleMainClick}> {/* main 부분 클릭 시 handleMainClick 호출 */}
         <img
-          src={process.env.PUBLIC_URL + '/main-running-track.jpg'}
+          src={process.env.PUBLIC_URL + '/main-track.jpg'}
           alt="Track"
         />
       </main>
 
       <footer>
-        <p></p>
+        <p>© 2025 Stride+</p>
       </footer>
     </div>
   );
