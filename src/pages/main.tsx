@@ -72,6 +72,15 @@ const posts: Post[] = [
 ];
 
 const MainPage = () => {
+  const [isUploadModalOpen, setIsUploadModalOpen] = useState(false); // 업로드 모달 상태
+
+  const openUploadModal = () => {
+    setIsUploadModalOpen(true); // 업로드 모달 열기
+  };
+
+  const closeUploadModal = () => {
+    setIsUploadModalOpen(false); // 업로드 모달 닫기
+  };
   const [selectedPost, setSelectedPost] = useState<Post | null>(null);
 
   const closeModal = () => {
@@ -105,6 +114,38 @@ const MainPage = () => {
           />
         ))}
       </MapContainer>
+
+      {/* 업로드 버튼 */}
+      <button className="upload-button" onClick={openUploadModal}>
+        Upload Post
+      </button>
+
+      {/* 업로드 모달 */}
+      {isUploadModalOpen && (
+        <div className="modal-overlay" onClick={closeUploadModal}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <h2>Upload Post</h2>
+            <form>
+              <div className="form-group">
+                <label htmlFor="title">Title</label>
+                <input type="text" id="title" placeholder="Enter post title" required />
+              </div>
+              <div className="form-group">
+                <label htmlFor="image">Image</label>
+                <input type="file" id="image" accept="image/*" required />
+              </div>
+              <div className="form-group">
+                <label htmlFor="location">Location</label>
+                <input type="text" id="location" placeholder="Enter location" required />
+              </div>
+              <button type="submit" className="auth-button">Submit</button>
+            </form>
+            <button className="modal-close-button" onClick={closeUploadModal}>
+              Close
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* 모달창 */}
       {selectedPost && (
